@@ -3,7 +3,6 @@ import json
 import os.path
 from fixture.application import Application
 
-
 fixture = None
 target = None
 
@@ -18,21 +17,21 @@ def load_config(file):
 @pytest.fixture
 def app(request):
     global fixture
-    web_config = load_config(request.config.getoption("--target"))['web']
     browser = request.config.getoption("--browser")
+    web_config = load_config(request.config.getoption("--target"))['web']
+    web_data_config = load_config(request.config.getoption("--target"))['webadmin']
     if fixture is None or not fixture.is_valid():
         fixture = Application(browser=browser, base_url=web_config['baseUrl'])
+    fixture.session.ensure_login(username=web_data_config['username'], password=web_data_config['password'] )
     return fixture
 
-
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope = "session", autouse=True)
 def stop(request):
     def fin():
         fixture.session.ensure_logout()
         fixture.destroy()
     request.addfinalizer(fin)
     return fixture
-
 
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="chrome")
