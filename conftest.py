@@ -19,10 +19,10 @@ def app(request):
     global fixture
     browser = request.config.getoption("--browser")
     web_config = load_config(request.config.getoption("--target"))['web']
-    web_data_config = load_config(request.config.getoption("--target"))['webadmin']
+    web_access_config = load_config(request.config.getoption("--target"))['webadmin']
     if fixture is None or not fixture.is_valid():
         fixture = Application(browser=browser, base_url=web_config['baseUrl'])
-    fixture.session.ensure_login(username=web_data_config['username'], password=web_data_config['password'] )
+    fixture.session.ensure_login(username=web_access_config['username'], password=web_access_config['password'] )
     return fixture
 
 @pytest.fixture(scope = "session", autouse=True)

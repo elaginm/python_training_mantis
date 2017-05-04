@@ -48,3 +48,11 @@ class ProjectHelper:
                 description = wd.find_element_by_xpath('//table/tbody/tr['+str(index)+']/td[5]').text
                 self.project_cache.append(Project(id=id, name=name, description=description))
         return list(self.project_cache)
+
+    def delete_project_by_id(self, id):
+        wd = self.app.wd
+        self.open_manage_project_page()
+        wd.find_element_by_xpath('//a[@href="manage_proj_edit_page.php?project_id='+str(id)+'"]').click()
+        wd.find_element_by_xpath('//input[@value="Удалить проект"]').click()
+        wd.find_element_by_xpath('//input[@value="Удалить проект"]').click()
+        self.project_cache = None
