@@ -1,7 +1,12 @@
 {
   "web": {
     "baseUrl": "http://localhost/mantisbt-1.2.19",
-    "soapUrl": "http://localhost/mantisbt-1.2.19/api/soap/mantisconnect.php?wsdl"
+    "soapUrl": "http://localhost/mantisbt-1.2.19/api/soap/mantisconnect.php?wsdl",
+    "mgprojUrl": "http://localhost/mantisbt-1.2.19/manage_proj_page.php"
+  },
+  "browser": {
+    "chrome":  "C:\\Project\\Chromedriver.exe",
+    "ie": "C:\\Project\\IEDriverServer.exe"
   },
   "webadmin": {
     "username": "administrator",

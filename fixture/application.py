@@ -14,11 +14,11 @@ class Application:
             self.wd = webdriver.Firefox()
         elif browser == "chrome":
             try:
-                self.wd = webdriver.Chrome(executable_path="C:\\Project\\Chromedriver.exe")
+                self.wd = webdriver.Chrome(config['browser']['chrome'])
             except:
                 self.wd = webdriver.Chrome()
         elif browser == "ie":
-            self.wd = webdriver.Ie(executable_path="C:\\Project\\IEDriverServer.exe")
+            self.wd = webdriver.Ie(config['browser']['ie'])
         else:
             raise ValueError("Unrecognized browser %s" % browser)
         self.session = SessionHelper(self)

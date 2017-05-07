@@ -1,5 +1,6 @@
 import re
 
+
 class SignupHelper:
 
     def __init__(self, app):

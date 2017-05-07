@@ -1,5 +1,7 @@
 from model.project import Project
 import re
+import time
+
 
 class ProjectHelper:
 
@@ -9,7 +11,7 @@ class ProjectHelper:
     def open_manage_project_page(self):
         wd = self.app.wd
         if not wd.current_url.endswith('/manage_proj_page.php'):
-            wd.get('http://localhost/mantisbt-1.2.19/manage_proj_page.php')
+            wd.get(self.app.config['web']['mgprojUrl'])
 
     def create_new_project(self, project):
         wd = self.app.wd
@@ -17,19 +19,20 @@ class ProjectHelper:
         wd.find_element_by_xpath('//input[@value="Create New Project"]').click()
         self.fill_project_form(project)
         wd.find_element_by_xpath('//input[@value="Add Project"]').click()
+        time.sleep(0.5)
         wd.find_element_by_xpath('//a[contains(text(),"Proceed")]').click()
         self.project_cache = None
 
     def change_field_value(self, field_name, text):
         wd = self.app.wd
         if text is not None:
-            wd.find_element_by_id(field_name).click()
-            wd.find_element_by_id(field_name).clear()
-            wd.find_element_by_id(field_name).send_keys(text)
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).clear()
+            wd.find_element_by_name(field_name).send_keys(text)
 
     def fill_project_form(self, project):
-        self.change_field_value('project-name', project.name)
-        self.change_field_value('project-description', project.description)
+        self.change_field_value('name', project.name)
+        self.change_field_value('description', project.description)
 
     project_cache = None
 
